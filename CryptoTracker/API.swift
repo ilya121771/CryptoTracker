@@ -21,11 +21,11 @@ class BlockchainAPI {
         
         switch ticker {
         case.btc:
-                symbol = "BTC-USD"
+            symbol = "BTC-USD"
         case.eth:
-                symbol = "ETH-USD"
+            symbol = "ETH-USD"
         case.ltc:
-                symbol = "LTC-USD"
+            symbol = "LTC-USD"
         }
         
         guard let url = URL(string: "https://api.blockchain.com/v3/exchange/tickers/\(symbol)") else {
@@ -35,13 +35,12 @@ class BlockchainAPI {
         let (data, response) = try await URLSession.shared.data(from: url)
         
         guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
-            APIError.invalidServerResponse
+            throw APIError.invalidServerResponse
         }
         
-        guard let crypto = try? JSONDecoder.decode(Crypto.self, from: data) else {
-            APIError.invalidData
+        guard let crypto = try? JSONDecoder().decode(Crypto.self, from: data) else {
+            throw APIError.invalidData
         }
-        
-        return Crypto
+        return crypto
     }
 }

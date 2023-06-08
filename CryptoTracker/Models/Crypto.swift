@@ -7,7 +7,7 @@
 import Foundation
 
 // MARK: - Crypto
-struct Welcome: Codable {
+struct Crypto: Codable {
     let symbol: String
     let price24H, volume24H, lastTradePrice: Double
 
